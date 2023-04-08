@@ -1,0 +1,1 @@
+sudo iptables -t nat -I PREROUTING -p tcp --dport $fromPort -j REDIRECT --to-port $toPort

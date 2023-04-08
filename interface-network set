@@ -1,0 +1,19 @@
+cd /etc/netplan/
+cp 01-network-manager-all.yaml{,.bak}
+sudo nano 01-network-manager-all.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens33:
+      dhcp: no
+      adresses: [192.168.1.49/24] 
+      routes:
+       -to:default
+       via:192.168.1.1
+      nameservers:
+       adresses:
+       - 8.8.8.8
+netplan try
+ping ya.ru
+(команда sudo ip addr add $ip/$mask broadcast $broadcast devens33) 
