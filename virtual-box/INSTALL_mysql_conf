@@ -1,18 +1,22 @@
-1  sudo apt install virtualbox-guest-additions-iso
-2  sudo mkdir /media/VBoxDrivers
-3  sudo mount /usr/share/virtualbox/VBoxGuestAdditions.iso /media/VBoxDrivers -o loop
-4  bash /media/VBoxDrivers/autorun.sh 
-5  sudo reboot
+  sudo apt install virtualbox-guest-additions-iso
+  sudo mkdir /media/VBoxDrivers
+  sudo mount /usr/share/virtualbox/VBoxGuestAdditions.iso /media/VBoxDrivers -o loop
+  bash /media/VBoxDrivers/autorun.sh 
+  sudo reboot
 
-6  sudo apt install mysql-server
-7  sudo systemctl start mysql.service
-8  xdg-open 'https://dev.mysql.com/downloads/repo/apt/'
-9  sudo dpkg -i ~/Downloads/mysql-apt-config_0.8.25-1_all.deb
-10  sudo apt-get update
-11  sudo apt-get install mysql-workbench-community
+  sudo apt install mysql-server
+  sudo systemctl start mysql.service
+  xdg-open 'https://dev.mysql.com/downloads/repo/apt/'
+  sudo dpkg -i ~/Downloads/mysql-apt-config_0.8.25-1_all.deb
+  sudo apt-get update
+  sudo apt-get install mysql-workbench-community
 
-12  sudo mysql
-13  CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password';
-14  GRANT ALL PRIVILEGES ON *.* TO 'testuser'@'localhost' WITH GRANT OPTION;
+  sudo mysql
+  CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password';
+  GRANT ALL PRIVILEGES ON *.* TO 'testuser'@'localhost' WITH GRANT OPTION;
+  //external
+  CREATE USER 'external'@'%' IDENTIFIED BY 'password';
+  GRANT ALL PRIVILEGES ON *.* TO 'external'@'%' WITH GRANT OPTION;
+  FLUSH PRIVILEGES;
 
-13  echo $HISTFILE
+  echo $HISTFILE
