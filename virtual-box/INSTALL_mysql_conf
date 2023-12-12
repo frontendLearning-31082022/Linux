@@ -19,4 +19,7 @@
   GRANT ALL PRIVILEGES ON *.* TO 'external'@'%' WITH GRANT OPTION;
   FLUSH PRIVILEGES;
 
+  sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+  //bind-address=0.0.0.0
+
   echo $HISTFILE

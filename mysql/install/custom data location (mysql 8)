@@ -1,0 +1,53 @@
+426  sudo systemctl stop mysql
+  427  udo apt-get purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+  428  sudo apt-get purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
+  429  sudo rm -rf /etc/mysql /var/lib/mysql
+  430  sudo apt autoremove
+  431  sudo apt autoclean
+  433  echo 'echo mysql purged'
+  434  sudo reboot
+
+  436  echo 'echo reinstall mysql
+  435  sudo apt install mysql-server
+  439  sudo systemctl start mysql.service
+  440  sudo mysql
+  446  echo 'echo mysql внутри   357  ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+  447    CREATE USER 'external'@'%' IDENTIFIED BY 'password';
+  448    GRANT ALL PRIVILEGES ON *.* TO 'external'@'%' WITH GRANT OPTION;
+  449    FLUSH PRIVILEGES;
+  450      sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+  451    //bind-address=0.0.0.0'
+  441  sudo /etc/init.d/mysql restart
+
+   // set data dir
+  483  sudo nano /etc/fstab
+  487  echo 'echo fstab append /dev/sda3 /MySQLdata/ ext4 defaults 0 0'
+  484  sudo reboot
+
+  456  mysql -u external -p
+  458  sudo rsync -av /var/lib/mysql /media/user775/MySQLdata/database/
+
+  459  sudo nano /etc/mysql/my.cnf
+  460  echo 'echo append -> [mysqld]
+  461  datadir = /MySQLdata/database/mysql
+  462  log_error = /MySQLdata/database/mysql/error.log'
+
+  463  sudo nano /etc/apparmor.d/tunables/alias
+  464  echo 'echo append alias /var/lib/mysql/ -> /MySQLdata/database/mysql/,'
+
+  471  sudo nano /etc/apparmor.d/usr.sbin.mysqld
+  472  echo 'echo replace   /MySQLdata/database/mysql r,
+  473      /MySQLdata/database/mysql** rwk,'
+
+  478  sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+  479  echo 'echo append datadir = /MySQLdata/database/mysql'
+
+  554  sudo chown -R mysql:mysql /MySQLdata/
+
+  465  sudo systemctl restart mysql
+
+  467  sudo /etc/init.d/apparmor reload
+  468  sudo /etc/init.d/mysql restart
+
+  600 mysql -u external -p
+  601 echo 'echo select @@datadir;'
